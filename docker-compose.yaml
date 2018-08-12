@@ -1,0 +1,29 @@
+version: '2'
+services:
+
+  influxdb:
+    container_name: monkeyhome_influxdb
+    image: influxdb
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+
+  grafana:
+    container_name: monkeyhome_grafana
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+  jupiter:
+    container_name: monkeyhome_jupiter
+    image: jupyter/datascience-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+    - $PWD/notebooks:/home/jovyan/work
+volumes:
+  grafana-storage:
+  influxdb-storage:
